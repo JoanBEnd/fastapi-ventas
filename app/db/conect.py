@@ -8,9 +8,9 @@ Base = declarative_base()
 
 # Formato del string de conexión
 # DRIVER y SERVER dependen de tu configuración
-SERVER = ""
-DATABASE = ""
-DRIVER = ""
+SERVER = "DESKTOP-JI4V2CK\SQLDEVELOPER2022"
+DATABASE = "Retail_ventas"
+DRIVER = "ODBC Driver 17 for SQL Server"
 
 # Cadena sin autenticación (usuario de Windows)
 connection_string = f"mssql+pyodbc://@{SERVER}/{DATABASE}?driver={DRIVER.replace(' ', '+')}"

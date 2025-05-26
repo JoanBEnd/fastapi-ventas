@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from app.routers import cliente, empleado, roles, producto, categoria, empleado_asignacion, ubigeo_region, ubigeo_estado, ubigeo_ciudad,venta
+from app.routers import cliente, empleado, roles, producto, categoria, empleado_asignacion, ubigeo_region, ubigeo_estado, ubigeo_ciudad,venta, venta_detalle
 
 
 
@@ -16,6 +16,7 @@ app.include_router(ubigeo_region.router)
 app.include_router(ubigeo_estado.router)
 app.include_router(ubigeo_ciudad.router)
 app.include_router(venta.router)
+app.include_router(venta_detalle.router)
 @app.get("/")
 def bienvenida():
     return {"message": "Bienvenido a la API de FastAPI"}
