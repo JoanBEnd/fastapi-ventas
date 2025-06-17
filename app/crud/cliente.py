@@ -1,3 +1,4 @@
+
 from app.db.conect import SessionLocal
 from sqlalchemy import text
 from app.db.models.cliente import Cliente
@@ -67,3 +68,17 @@ def actualizar_cliente(Id_Cliente: int, cliente):
     finally:
         db.close() 
  
+
+def obtener_ultimo_cliente():
+    db = SessionLocal()
+    try:
+        db_cliente = db.query(Cliente).order_by(Cliente.Id_Cliente.desc()).first()
+        if not db_cliente:
+            return HTTPException(status_code=404, detail="No se encontró ningún cliente registrado")
+        return db_cliente
+    
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error al obtener el último cliente: {str(e)}")
+    
+    finally:
+        db.close()

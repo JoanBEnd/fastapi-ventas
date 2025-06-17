@@ -57,7 +57,7 @@ def actualizar_categoria(Id_Categoria: int, categoria):
 
 def obtener_ultimo_registro():
     db = SessionLocal()
-    print("holaaaaa")
+    
     try:
         db_ultimo_registro = db.query(Categoria).order_by(Categoria.id_Categoria.desc()).first()
         if not db_ultimo_registro:

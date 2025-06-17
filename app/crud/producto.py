@@ -55,4 +55,17 @@ def actualizar_producto(Id_Producto: int, producto):
         raise HTTPException(status_code=500, detail=f"Error de conexion: {str(e)}")   
     finally:
         db.close()
+
+def obtener_ultimo_producto():
+    db = SessionLocal()
+    try:
+        db_producto = db.query(Producto).order_by(Producto.Id_Producto.desc()).first()
+        if not db_producto:
+            raise HTTPException(status_code=404, detail="No se encontró ningún producto registrado")
         
+        return db_producto
+    
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error al obtener el último producto: {str(e)}")
+    finally:
+        db.close()

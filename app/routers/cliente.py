@@ -1,5 +1,10 @@
 from fastapi import APIRouter
-from app.crud.cliente import obtener_cliente as obtener_cliente_db, actualizar_cliente as actualizar_cliente_db, registrar_cliente as registrar_cliente_db
+from app.crud.cliente import (
+    obtener_cliente as obtener_cliente_db, 
+    actualizar_cliente as actualizar_cliente_db,
+    registrar_cliente as registrar_cliente_db,
+    obtener_ultimo_cliente as obtener_ultimo_cliente_db
+    )
 
 #from app.db.models.cliente import Cliente
 from app.db.schema.cliente import Cliente, ClienteConsulta
@@ -12,7 +17,7 @@ router = APIRouter(prefix="/clientes", tags=["Clientes"], responses={404: {"desc
 def bienvenida():
     return {"message": "Bienvenido a clientes API"}
 
-@router.get("/{Id_Cliente}", response_model=ClienteConsulta)
+@router.get("/obtener/{Id_Cliente}", response_model=ClienteConsulta)
 def obtener_cliente(Id_Cliente: int): 
     return obtener_cliente_db(Id_Cliente)
 
@@ -23,4 +28,8 @@ def registrar_cliente(cliente: ClienteConsulta):
 @router.put("/actualizar", response_model=ClienteConsulta)
 def actualizar_cliente(Id_Cliente: int, cliente: ClienteConsulta):
     return actualizar_cliente_db(Id_Cliente, cliente)
-     
+
+
+@router.get("/ultimo", response_model=Cliente)
+def obtener_ultimo_cliente():    
+    return obtener_ultimo_cliente_db()    

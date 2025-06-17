@@ -1,5 +1,6 @@
 from app.db.conect import SessionLocal
 from app.db.models.empleado import Empleado
+from app.db.models.empleado_asignacion import EmpleadoAsignacion
 from sqlalchemy import text
 from fastapi import HTTPException
 
@@ -61,5 +62,22 @@ def actualizar_empleado(Id_Empleado: int, empleado ):
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error al actualizar el empleado: {str(e)}")
     
+    finally:
+        db.close()
+
+def obtener_ultimo_empleado():
+    db = SessionLocal()
+
+    try:
+
+        #db_ultimo_empleado = db.query(Empleado).order_by(Empleado.Id_Empleado.desc()).first()
+        db_ultimo_empleado = db.query(Empleado).join(
+            EmpleadoAsignacion, Empleado.Id_Empleado == EmpleadoAsignacion.id_Empleado
+        ).order_by(Empleado.Id_Empleado.desc()).first()
+        if not db_ultimo_empleado:
+           raise HTTPException(status_code=404, detail="No se encontró el último empleado registrado")         
+        return db_ultimo_empleado
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error al obtener el último empleado:  {str(e)}")
     finally:
         db.close()

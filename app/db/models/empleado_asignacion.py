@@ -3,7 +3,7 @@ from sqlalchemy import Column, Integer, String, ForeignKey
 
 
 class EmpleadoAsignacion(Base):
-    __tablename__ = "Empleado_Asginacion"
+    __tablename__ = "Empleado_Asignacion"
 
     id_Asignacion = Column(Integer, primary_key=True, index=True, autoincrement=True)
     id_Empleado = Column(Integer, ForeignKey("Empleado.Id_Empleado"), nullable=False)
